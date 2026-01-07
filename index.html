@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vennila P • Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <style>
+    :root{
+      --bg: #0b0f1a;
+      --card: #0f1724;
+      --muted: #9aa7c7;
+      --accent: linear-gradient(90deg,#7b61ff,#00d4ff);
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(123,97,255,0.06), transparent),
+                  radial-gradient(800px 400px at 90% 90%, rgba(0,212,255,0.04), transparent),
+                  var(--bg);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding-top:60px;
+    }
+    .container-xl{max-width:1180px}
+
+    /* Navbar */
+    .navbar-custom{
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius: 12px;
+      padding: .6rem 1rem;
+      position:fixed;left:50%;transform:translateX(-50%);top:12px;z-index:2000;
+      width:calc(100% - 40px);max-width:1180px;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+    }
+    .nav-link{color:var(--muted) !important}
+    .nav-link:hover{color:#fff !important}
+
+    /* Hero */
+    .hero{
+      padding: 80px 0 40px 0;
+      display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;
+    }
+    .hero-left h1{font-size:2.25rem;margin-bottom:.25rem}
+    .hero-left p{color:var(--muted);font-size:1.05rem}
+    .cta-btn{
+      background: var(--accent);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; font-weight:700; border:2px solid transparent;
+    }
+    .profile-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:var(--radius); padding:18px; text-align:center; box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    }
+    .profile-img{width:180px;height:180px;border-radius:20px;object-fit:cover;border:3px solid rgba(255,255,255,0.04)}
+    .tag{display:inline-block;padding:.25rem .6rem;border-radius:999px;background:var(--glass);color:var(--muted);font-size:.85rem}
+
+    /* Cards */
+    .card-dark{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03)
+    }
+
+    /* Skills */
+    .skill{background:var(--glass);padding:.5rem .75rem;border-radius:999px;margin:.25rem;display:inline-block;color:var(--muted)}
+
+    /* Projects */
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .proj-card{
+      position:relative;overflow:hidden;border-radius:12px;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;
+      transition:transform .45s cubic-bezier(.2,.9,.2,1), box-shadow .45s;
+      border:1px solid rgba(255,255,255,0.03);
+      background-size:cover;background-position:center;
+    }
+    .proj-overlay{backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(11,15,26,0.0), rgba(11,15,26,0.6));padding:16px}
+    .proj-card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(2,6,23,0.6)}
+    .proj-meta{display:flex;justify-content:space-between;align-items:center}
+
+    .proj-card{
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+
+    /* Resume */
+    .resume-box{display:flex;gap:18px;align-items:center}
+
+    /* Contact */
+    .contact-card input, .contact-card textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:.8rem;border-radius:10px;color:#dfe9ff}
+    .contact-card input::placeholder, .contact-card textarea::placeholder{color:var(--muted)}
+
+    /* Footer */
+    footer{padding:30px 0 80px;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 992px){
+      .hero{grid-template-columns:1fr}
+      .projects-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 560px){
+      .projects-grid{grid-template-columns:1fr}
+      .navbar-custom{top:8px;padding:.5rem}
+      .hero-left h1{font-size:1.6rem}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container-fluid px-0">
+      <!--<a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <!--<img src="portfolioimg.avif" alt="logo" style="width:42px;height:42px;border-radius:8px;object-fit:cover;">-->
+        <!--<div class="d-none d-sm-block">
+          <div style="font-weight:700">Vennila P</div>
+          <div style="font-size:.72rem;color:var(--muted)">Full Stack Web Developer</div>
+        </div>
+      </a>-->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse justify-content-center" id="navmenu">
+        <ul class="navbar-nav gap-2 align-items-center">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container-xl">
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-left">
+        <div class="card-dark" style="padding:28px;">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="tag">Open for Software Developer & UI Enthusiast</div>
+            <div style="font-size:.9rem;color:var(--muted)">Based in India</div>
+          </div>
+          <h1 class="mb-0">Hi, I’m <span style="background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Vennila P</span></h1>
+          <p class="mb-3">Full Stack Web Developer — Turning ideas into interactive, high-performance web experiences through thoughtful design and code <strong>Python, Django, HTML, CSS, JavaScript</strong> and modern libraries.</p>
+          <div class="d-flex gap-2">
+            <a href="#projects" class="btn btn-outline-light btn-sm">View My Work</a>
+            <a href="#contact" class="btn btn-light btn-sm">Contact Me</a>
+          </div>
+        </div>
+
+        <div class="mt-4 card-dark">
+          <h5 class="mb-3">Skills</h5>
+          <div>
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">Bootstrap</span>
+            <span class="skill">jQuery</span>
+            <span class="skill">GSAP</span>
+            <span class="skill">Python</span>
+            <span class="skill">Django</span>
+            <span class="skill">Git</span>
+          </div>
+        </div>
+
+        <div class="mt-4 card-dark">
+          <h5 class="mb-3">Experience</h5>
+          <p style="color:var(--muted);margin-bottom:0">Web Developer Intern at <strong>Skill Decode Tech, Chennai</strong> — Frontend (Mar 2025–Jun 2025)</p>
+          <!-- Refinement Software Solutions Internship -->
+  <p style="color:var(--muted);margin-bottom:0; margin-top:0.5rem;">
+    Python Fullstack Developer Intern at <strong>Refinement Software Solutions, Coimbatore</strong> — Python Full Stack (Sep 2024–Feb 2025)
+  </p>
+        </div>
+      </div>
+
+      <aside>
+        <div class="profile-card">
+          <img src="portfolioimg.avif" alt="profile" class="profile-img mb-3">
+          <h5 class="mb-1">Vennila P</h5>
+          <div style="color:var(--muted);font-size:.92rem;margin-bottom:8px">Full Stack Web Developer</div>
+          <div class="d-flex gap-2 justify-content-center mb-3">
+            <a href="mailto:vennilapvennila01@gmail.com" class="btn btn-sm btn-outline-light"><i class="fa fa-envelope"></i></a>
+            <a href="tel:+916385282177" class="btn btn-sm btn-outline-light"><i class="fa fa-phone"></i></a>
+            <a href="#" class="btn btn-sm btn-outline-light"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="btn btn-sm btn-outline-light"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+          <div class="tag">Download Resume</div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="mt-5">
+      <div class="card-dark p-4">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h3>About Me</h3>
+            <p style="color:var(--muted)">I’m <strong>Vennila P</strong>, a full-stack web developer with a BSc in IT and pursuing MCA. I create clean, responsive websites with delightful micro-interactions and strong attention to detail. I enjoy building projects like e-commerce layouts, salon portfolios, and interactive dashboards.</p>
+            <div class="d-flex gap-2 flex-wrap">
+              <div class="p-3" style="background:var(--glass-2);border-radius:10px;min-width:120px">
+                <div style="font-weight:700">Education</div>
+                <div style="color:var(--muted)">MCA (present), BSc IT</div>
+              </div>
+              <div class="p-3" style="background:var(--glass-2);border-radius:10px;min-width:120px">
+                <div style="font-weight:700">Languages</div>
+                <div style="color:var(--muted)">English, Tamil</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-dark p-3">
+              <h6>Tech Stack</h6>
+              <ul style="color:var(--muted);margin-bottom:0">
+                <li>HTML, CSS, JavaScript, Bootstrap, jQuery</li>
+                <li>Python, Django, REST basics</li>
+                <li>GSAP animations, responsive design</li>
+                <li>Git, basic deployment</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="mt-5">
+      <h3 class="mb-3">Selected Projects</h3>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="proj-card" style="background-image:url('grocery img.jpg');">
+          <div class="proj-overlay">
+            <div class="proj-meta">
+              <div>
+                <div style="font-weight:700">G-Mart (Grocery UI)</div>
+                <div style="color:var(--muted);font-size:.9rem">BigBasket-style grocery UI built with Bootstrap & JS</div>
+              </div>
+              <div>
+                <a class="btn btn-sm btn-outline-light" href=" https://vennila1201.github.io/GMART/">Live</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project 2 -->
+        <div class="proj-card" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd');">
+          <div class="proj-overlay">
+            <div class="proj-meta">
+              <div>
+                <div style="font-weight:700">University Website</div>
+                <div style="color:var(--muted);font-size:.9rem">University Portal website UI built with Bootstrap & JS</div>
+              </div>
+              <div>
+                <a class="btn btn-sm btn-outline-light" href="https://vennila1201.github.io/college-website/">Live</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="proj-card" style="background-image:url('beauty\ salon\ img.jpg');">
+          <div class="proj-overlay">
+            <div class="proj-meta">
+              <div>
+                <div style="font-weight:700">AK Beauty Salon</div>
+                <div style="color:var(--muted);font-size:.9rem">Portfolio website for a beauty parlour with booking UI</div>
+              </div>
+              <div>
+                <a class="btn btn-sm btn-outline-light" href=" https://vennila1201.github.io/AK-beauty/">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume" class="mt-5">
+      <div class="card-dark p-4 resume-box justify-content-between align-items-center">
+        <div>
+          <h4 style="margin-bottom:6px">Resume</h4>
+          <div style="color:var(--muted)">Download a PDF version of my resume with full details — education, experience, and certifications.</div>
+        </div>
+        <div>
+          <!-- NOTE: replace "resume.pdf" with your actual file path -->
+          <a href="C:\Users\venni\OneDrive\Desktop\resume\Resume-Nila01.pdf" download class="btn btn-outline-light">Download Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="mt-5">
+      <h3>Contact Me</h3>
+      <div class="row mt-3">
+        <div class="col-lg-6">
+          <div class="card-dark p-3 contact-card">
+            <form id="contactForm">
+              <div class="mb-3">
+                <input type="text" id="name" placeholder="Your name" class="w-100">
+              </div>
+              <div class="mb-3">
+                <input type="email" id="email" placeholder="Your email" class="w-100">
+              </div>
+              <div class="mb-3">
+                <textarea id="message" rows="5" placeholder="Message" class="w-100"></textarea>
+              </div>
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-light">Send Message</button>
+                <button type="reset" class="btn btn-outline-light">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card-dark p-4">
+            <h6>Get in touch</h6>
+            <p style="color:var(--muted)">Email: vennilapvennila01@gmail.com<br>Phone: +91 6385282177<br>Location: India</p>
+            <div class="d-flex gap-2 mt-3">
+              <a href="#" class="btn btn-sm btn-outline-light"><i class="fa-brands fa-github"></i> GitHub</a>
+              <a href="#" class="btn btn-sm btn-outline-light"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+              <a href="#" class="btn btn-sm btn-outline-light"><i class="fa fa-globe"></i> Website</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-5 text-center">
+      <div class="card-dark p-3">
+        <div>© <span id="year"></span> Vennila P • Built with UI</div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    // small interactions & GSAP animations
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from('.hero-left .card-dark', {opacity:0, y:24, duration:0.9, ease:'power3.out'});
+    gsap.from('.profile-card', {opacity:0, y:24, duration:0.9, delay:0.2, ease:'power3.out'});
+
+    gsap.utils.toArray('.proj-card').forEach((card, i) => {
+      gsap.from(card, {opacity:0, y:20, duration:0.9, delay: 0.12 * i, ease:'power3.out'});
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // Simple contact form handler (client-side only)
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if(!name || !email || !message){
+        alert('Please fill all fields.');
+        return;
+      }
+      // This demo shows a friendly message. Replace with a backend POST when available.
+      alert('Thanks, ' + name + '! Your message has been received (demo).');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
